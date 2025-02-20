@@ -1,9 +1,5 @@
-# projeto-1semestre-2025
+git clone https://github.com/h2danilofatec/projeto-1semestre-2025.git
 
-## pastel e caldo de cana
+git config –global user.name “h2danilofatec”
 
-
-alterando mesmo arquivo
-
-### yakult pro biótico
-
+git config –global user.email “danilo.valim01@fatecitapetininga.edu.br”
