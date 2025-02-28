@@ -16,7 +16,7 @@ public class ExercicioController {
 
     @GetMapping("")
     public String HelloWorld1() {
-        return "hello";
+        return "hello6";
     }
 
     @GetMapping("{nome}")
