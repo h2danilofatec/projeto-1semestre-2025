@@ -1,7 +1,6 @@
 package com.fatec.projeto.projeto2025.controllers;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.fatec.projeto.projeto2025.entities.Cliente;
 
@@ -10,14 +9,8 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -51,6 +44,22 @@ public class ClienteController {
         return clientes;
     }
 
+    @PutMapping("/atualizarCliente/{id}")
+    public ResponseEntity<String> atualizarCliente(@PathVariable Long id, @RequestBody Cliente clienteAtualizado) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getId().equals(id)) {
+                cliente.setNome(clienteAtualizado.getNome());
+                cliente.setIdade(clienteAtualizado.getIdade());
+
+                logger.info("Cliente atualizado: Id={}, Nome={}, Idade={}",
+                        cliente.getId(), cliente.getNome(), cliente.getIdade());
+
+                return ResponseEntity.ok("Cliente atualizado com sucesso!");
+            }
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente com ID " + id + " não encontrado.");
+    }
+
     @DeleteMapping("/deletarCliente/{id}")
     public String DeletarClientes(@PathVariable Long id) {
         for( Cliente cliente: clientes) {
@@ -61,6 +70,16 @@ public class ClienteController {
         }
 
         return "Não existe cliente com id: "+id;
+    }
+
+    @GetMapping("/buscarCliente/{id}")
+    public ResponseEntity<?> buscarClientePorId(@PathVariable Long id) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getId().equals(id)) {
+                return ResponseEntity.ok(cliente);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente com ID " + id + " não encontrado.");
     }
 
 }
