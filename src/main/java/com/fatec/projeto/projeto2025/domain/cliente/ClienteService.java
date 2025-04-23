@@ -19,7 +19,8 @@ public class ClienteService {
 
     public Cliente criarCliente(Cliente cliente) {
         cliente.setId(null);
-        return clienteRepository.save(cliente);
+        Cliente clienteCriado = clienteRepository.save(cliente);
+        return clienteCriado;
     }
 
     public boolean atualizarCliente(Long id, Cliente clienteAtualizado) {

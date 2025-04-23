@@ -1,5 +1,6 @@
 package com.fatec.projeto.projeto2025.controllers;
 
+import com.fatec.projeto.projeto2025.exception.RecursoNaoEncontradoException;
 import org.springframework.web.bind.annotation.*;
 
 import com.fatec.projeto.projeto2025.domain.cliente.ClienteService;
