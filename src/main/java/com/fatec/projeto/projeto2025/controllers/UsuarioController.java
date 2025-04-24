@@ -32,18 +32,18 @@ public class UsuarioController {
         return usuarioService.listarTodos();
     }
 
-    @GetMapping("/{id}")
+    /*@GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
         Optional<Usuario> user = usuarioService.buscarPorId(id);
         return user.<ResponseEntity<?>>map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario com ID " + id + " não encontrado."));
-    }
+    }*/
 
-    /*@GetMapping("/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id) {
         Usuario user = usuarioService.buscarPorId(id);
         return ResponseEntity.ok(user);
-    }*/
+    }
 
     @PutMapping("/{id}")
     public Usuario atualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {

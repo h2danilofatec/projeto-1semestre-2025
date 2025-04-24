@@ -19,6 +19,11 @@ public class UsuarioService {
     }
 
     public Usuario salvar(Usuario usuario) {
+        Usuario usuarioExiste = usuarioRepository.findByNome(usuario.getNome());
+        if (usuarioExiste != null) {
+            throw new IllegalArgumentException("Usuario já existe.");
+        }
+
         usuario.setId(null);
         return usuarioRepository.save(usuario);
     }
@@ -27,18 +32,26 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
-    public Optional<Usuario> buscarPorId(Long id) {
+    /*public Optional<Usuario> buscarPorId(Long id) {
         return usuarioRepository.findById(id);
-    }
+    }*/
 
-    /*public Usuario buscarPorId(Long id) {
+    public Usuario buscarPorId(Long id) {
+
         return usuarioRepository.findById(id)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Usuário com ID " + id + " não encontrado"));
-    }*/
+
+        //codigo abaixo tbm funciona
+        /*var usuario = usuarioRepository.findById(id);
+        if (usuario.isPresent()) {
+            return usuario.get();
+        }
+        throw new RecursoNaoEncontradoException("Usuário com ID " + id + " não encontrado");*/
+    }
 
     public Usuario atualizar(Long id, Usuario novoUsuario) {
         Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Usuário não encontrado"));
 
         usuario.setNome(novoUsuario.getNome());
         usuario.setEmail(novoUsuario.getEmail());
